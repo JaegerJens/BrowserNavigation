@@ -5,12 +5,23 @@
     function show(view)
     {
         var p = document.getElementById(view);
-        p.style.display = "block";
-    }
+        if (!p)
+            return false;
 
+        p.style.display = "block";
+        return true;
+    }
     function hide(view) {
         var p = document.getElementById(view);
+        if (!p)
+            return false;
         p.style.display = "none";
+        return true;
+    }
+    function hideAllViews() {
+        for (i = 0; i < allviews.length; i++) {
+            hide(allviews[i]);
+        }
     }
     function showLogin() {
         hide("privacypolicy");
@@ -45,21 +56,14 @@
         }
         console.trace("route to: " + view);
         
-        switch (view) {
-            case "login":
-                showLogin();
-                break;
-            case "privacypolicy":
-                showPrivacyPolicy();
-                break;
-            case "app":
-                showApp();
-                break;
-            default:
-                showLogin();
-                view = "login";
-                break;
+        hideAllViews();
+        var res = show(view);
+
+        if (!res) {
+            view = "login";
+            show(view);
         }
+        
         displayLocation(view);
     }
     function checkLogin() {
@@ -73,6 +77,16 @@
         }
         return false;
     }
+    var allviews = [];
+    function registerViews() {
+        var views = document.getElementsByClassName("view");
+        allviews = [];
+        for (i = 0; i < views.length; i++) {
+            var v = views[i];
+            allviews.push(v.id);
+        }
+        hideAllViews();
+    }
 
 </script>
  <style type="text/css">
@@ -80,19 +94,19 @@
  </style>
 </head>
 <body>
-    <div id="login">
+    <div id="login" class="view">
         <form>
             <label for="email">Email</label><input id="loginEmail" type="text" name="email" value="jens@localhost" />
             <label for="password">Password</label><input id="loginPassword" type="password" name="password"  value="secret" />
             <input type="button" value="login" onclick="checkLogin()"/>
         </form>
     </div>
-    <div id="privacypolicy" style="display: none">
+    <div id="privacypolicy" class="view">
         <h1>Data Privacy Policy</h1>
         <div>We track every click you make</div>
-        <a href="#app" onclick="route('app')">Accept</a>
+        <a href="#app">Accept</a>
     </div>
-    <div id="app" style="display: none">
+    <div id="app" class="view">
         <h1>TecWeb Application</h1>
         <ul>
             <li>Order</li>
@@ -102,6 +116,8 @@
     </div>
     <div id="location">Current location: <span id="currentview"/></div>
     <script type="text/javascript">
+        console.trace("document load!")
+        registerViews();
         route();
         window.onhashchange = onHashChanged;
     </script>
