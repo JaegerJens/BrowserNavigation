@@ -49,8 +49,18 @@
         var view = getAnchor();
         route(view);
     }
+    function goToView(view) {
+        if (view[0] != '#') {
+            view = '#' + view;
+        }
+        window.location.hash = view;
+    }
     function route(view)
     {
+        if (!isAuthenticated) {
+            console.trace("not authenticated, back to login");
+            goToView("login");
+        }
         if (!view) {
             var view = getAnchor();
         }
@@ -66,13 +76,16 @@
         
         displayLocation(view);
     }
+    var isAuthenticated = false;
     function checkLogin() {
         var email = document.getElementById("loginEmail");
         var password = document.getElementById("loginPassword");
         if ((email.value === "jens@localhost") && (password.value === "secret")) {
             console.trace("login successful");
-            window.location.hash = "#privacypolicy";
+            isAuthenticated = true;
+            goToView("privacypolicy");
         } else {
+            isAuthenticated = false;
             console.trace("login failed");
         }
         return false;
@@ -87,7 +100,6 @@
         }
         hideAllViews();
     }
-
 </script>
  <style type="text/css">
      #location { position: absolute; bottom: 0px;}
@@ -133,6 +145,7 @@
     <script type="text/javascript">
         console.trace("document load!")
         registerViews();
+
         route();
         window.onhashchange = onHashChanged;
     </script>
