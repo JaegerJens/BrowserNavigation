@@ -75,6 +75,11 @@
         }
         return false;
     }
+    function logout() {
+        isAuthenticated = false;
+        goToView("login");
+    }
+
     var allviews = [];
     function registerViews() {
         var views = document.getElementsByClassName("view");
@@ -130,6 +135,7 @@
         <p><a href="#app">back</a></p>
     </div>
     <div id="location">
+        <button onclick="logout()">Logout!</button>
         <p>Current location: <span id="currentview"></span></p>
         <p>open Javascript console for tracing</p>
     </div>
