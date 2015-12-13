@@ -28,9 +28,7 @@
         show("app");
     }
     function getAnchor() {
-        var link = document.location.href;
-        var p = link.indexOf("#");
-        return p > 0 ? link.substring(p + 1) : "";
+	    return window.location.hash.substring(1);
     }
     function displayLocation(loc) {
         var location = document.getElementById("location");
