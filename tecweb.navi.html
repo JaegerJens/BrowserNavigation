@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>TecWeb Navigation Demo</title>
+<script type="text/javascript">
+    function show(view)
+    {
+        var p = document.getElementById(view);
+        p.style.display = "block";
+    }
+
+    function hide(view) {
+        var p = document.getElementById(view);
+        p.style.display = "none";
+    }
+    function showLogin() {
+        hide("privacypolicy");
+        hide("app");
+        show("login");
+    }
+    function showPrivacyPolicy() {
+        hide("login");
+        hide("app");
+        show("privacypolicy");
+    }
+    function showApp() {
+        hide("login");
+        hide("privacypolicy");
+        show("app");
+    }
+    function getAnchor() {
+        var link = document.location.href;
+        var p = link.indexOf("#");
+        return p > 0 ? link.substring(p + 1) : "";
+    }
+    function displayLocation(loc) {
+        var location = document.getElementById("location");
+        location.textContent = "Current Location: " + loc;
+    }
+    function route(view)
+    {
+        console.trace("route")
+        if ((!view) || (typeof(view) === 'object')) {
+            var view = getAnchor();
+        }
+        console.trace(view);
+        
+        switch (view) {
+            case "login":
+                showLogin();
+                break;
+            case "privacypolicy":
+                showPrivacyPolicy();
+                break;
+            case "app":
+                showApp();
+                break;
+            default:
+                showLogin();
+                view = "login";
+                break;
+        }
+        displayLocation(view);
+    }
+
+    
+</script>
+</head>
+<body>
+    <div id="login">
+        <form action="#privacypolicy" method="post">
+            <label for="email">Email</label><input type="text" name="email" />
+            <label for="password">Password</label><input type="password" name="password" />
+            <input type="submit" value="login" />
+        </form>
+    </div>
+    <div id="privacypolicy" style="display: none">
+        <h1>Data Privacy Policy</h1>
+        <div>We track every click you make</div>
+        <a href="#app" onclick="route('app')">Accept</a>
+    </div>
+    <div id="app" style="display: none">
+        <h1>TecWeb Application</h1>
+        <ul>
+            <li>Order</li>
+            <li>Basket</li>
+            <li>History</li>
+        </ul>
+    </div>
+    <div id="location"></div>
+    <script type="text/javascript">
+        route();
+        window.onhashchange = route;
+    </script>
+</body>
+</html>
