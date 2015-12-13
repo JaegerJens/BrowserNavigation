@@ -23,21 +23,6 @@
             hide(allviews[i]);
         }
     }
-    function showLogin() {
-        hide("privacypolicy");
-        hide("app");
-        show("login");
-    }
-    function showPrivacyPolicy() {
-        hide("login");
-        hide("app");
-        show("privacypolicy");
-    }
-    function showApp() {
-        hide("login");
-        hide("privacypolicy");
-        show("app");
-    }
     function getAnchor() {
 	    return window.location.hash.substring(1);
     }
@@ -103,6 +88,7 @@
 </script>
 <style type="text/css">
     #location { position: absolute; bottom: 0px;}
+    #currentview { font-family:Courier New, Courier, monospace }
     .view { margin: 1em; }
 </style>
 </head>
@@ -110,8 +96,8 @@
     <h1>TecWeb prototype</h1>
     <div id="login" class="view">
         <form>
-            <label for="email">Email</label><input id="loginEmail" type="text" name="email" value="jens@localhost" />
-            <label for="password">Password</label><input id="loginPassword" type="password" name="password"  value="secret" />
+            <input id="loginEmail" type="text" name="email" value="jens@localhost" placeholder="email" /><br />
+            <input id="loginPassword" type="password" name="password"  value="secret" placeholder="password"/><br />
             <input type="button" value="login" onclick="checkLogin()"/>
         </form>
     </div>
@@ -143,11 +129,13 @@
         <p>...</p>
         <p><a href="#app">back</a></p>
     </div>
-    <div id="location">Current location: <span id="currentview"/></div>
+    <div id="location">
+        <p>Current location: <span id="currentview"></span></p>
+        <p>open Javascript console for tracing</p>
+    </div>
     <script type="text/javascript">
         console.trace("document load!")
         registerViews();
-
         route();
         window.onhashchange = onHashChanged;
     </script>
