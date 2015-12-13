@@ -101,11 +101,13 @@
         hideAllViews();
     }
 </script>
- <style type="text/css">
-     #location { position: absolute; bottom: 0px;}
- </style>
+<style type="text/css">
+    #location { position: absolute; bottom: 0px;}
+    .view { margin: 1em; }
+</style>
 </head>
 <body>
+    <h1>TecWeb prototype</h1>
     <div id="login" class="view">
         <form>
             <label for="email">Email</label><input id="loginEmail" type="text" name="email" value="jens@localhost" />
@@ -114,12 +116,12 @@
         </form>
     </div>
     <div id="privacypolicy" class="view">
-        <h1>Data Privacy Policy</h1>
+        <h2>Data Privacy Policy</h2>
         <div>We track every click you make</div>
         <a href="#app">Accept</a>
     </div>
     <div id="app" class="view">
-        <h1>TecWeb Application</h1>
+        <h2>Main menu</h2>
         <ul>
             <li><a href="#order">Order</a></li>
             <li><a href="#basket">Basket</a></li>
@@ -127,17 +129,17 @@
         </ul>
     </div>
     <div id="order" class="view">
-        <h1>Order new part</h1>
+        <h2>Order new part</h2>
         <p>...</p>
         <p><a href="#app">back</a></p>
     </div>
     <div id="basket" class="view">
-        <h1>Your basket</h1>
+        <h2>Your basket</h2>
         <p>...</p>
         <p><a href="#app">back</a></p>
     </div>
     <div id="history" class="view">
-        <h1>Your order history</h1>
+        <h2>Your order history</h2>
         <p>...</p>
         <p><a href="#app">back</a></p>
     </div>
