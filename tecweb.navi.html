@@ -31,8 +31,8 @@
 	    return window.location.hash.substring(1);
     }
     function displayLocation(loc) {
-        var location = document.getElementById("location");
-        location.textContent = "Current Location: " + loc;
+        var currentview = document.getElementById("currentview");
+        currentview.textContent = loc;
     }
     function onHashChanged(event) {
         var view = getAnchor();
@@ -75,6 +75,9 @@
     }
 
 </script>
+ <style type="text/css">
+     #location { position: absolute; bottom: 0px;}
+ </style>
 </head>
 <body>
     <div id="login">
@@ -97,7 +100,7 @@
             <li>History</li>
         </ul>
     </div>
-    <div id="location"></div>
+    <div id="location">Current location: <span id="currentview"/></div>
     <script type="text/javascript">
         route();
         window.onhashchange = onHashChanged;
